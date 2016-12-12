@@ -1,8 +1,15 @@
 package com.lemo.ch08;
 
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.Properties;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +25,7 @@ import java.util.regex.Pattern;
 public class Chapter08 {
 	
 	public static void main(String[] args) {
-		test14();
+		test18();
 	}
 	
 	public static void println(String str){
@@ -268,5 +275,55 @@ public class Chapter08 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
+	}
+	
+	public static void test15() {
+		Properties properties  = new Properties();
+		try {
+			properties.load(new FileInputStream(""));
+			String name = (String) properties.getProperty("name");
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 
+	    * @Title: test16
+	    * @Description: exe 运行
+	    * void    返回类型
+	    * @throws
+	 */
+	public static void test16() {
+//		println(Thread.currentThread().getContextClassLoader().getResources(""));
+	}
+	
+	public static void test17() {
+		Runtime runtime = Runtime.getRuntime();
+		try {
+			runtime.exec("D:\\Program Files (x86)\\UltraISO\\UltraISO.exe");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void test18() {
+		try {
+			Process process  = Runtime.getRuntime().exec("ipconfig");
+			BufferedReader br =new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
+			while(true){
+				String 	string  = br.readLine();
+				if (string ==null) {
+					break;
+				}
+				println(string);
+			}
+			br.close();
+			process.waitFor();
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }
